@@ -1,3 +1,4 @@
+import React from 'react';
 const TextField = ({
   fieldType,
   value,
@@ -6,7 +7,7 @@ const TextField = ({
   onHandleChange,
   error,
   classes,
-  placeholder
+  placeholder,
 }) => {
   function getClasses() {
     return error ? 'form-control is-invalid' : 'form-control ';
@@ -16,39 +17,43 @@ const TextField = ({
   };
   return (
     <>
-      <label htmlFor={`#${fieldName}`} className="form-label">
-        {fieldLable}
-      </label>
-      {fieldType === 'textarea' && (
-        <textarea
-          name={fieldName}
-          value={value}
-          aria-describedby="addon-wrapping"
-          id={fieldName}
-          placeholder={placeholder}
-          onChange={handleChange}
-          className={classes}
-        ></textarea>
-      )}
-      {fieldType !== 'textarea' && (
-        <input
-          type={fieldType}
-          name={fieldName}
-          value={value}
-          aria-describedby="addon-wrapping"
-          id={fieldName}
-          placeholder={placeholder}
-          onChange={handleChange}
-          className={classes || getClasses()}
-        ></input>
-      )}
-      {error && (
-        <div className="invalid-feedback" role="alert">
-          {error}
-        </div>
-      )}
+      <div className="form__field">
+        <label htmlFor={`#${fieldName}`} className="form-label">
+          {fieldLable}
+        </label>
+        {fieldType === 'textarea' && (
+          <textarea
+            name={fieldName}
+            value={value}
+            aria-describedby="addon-wrapping"
+            id={fieldName}
+            placeholder={placeholder}
+            onChange={handleChange}
+            className={classes}
+          ></textarea>
+        )}
+        {fieldType !== 'textarea' && (
+          <input
+            type={fieldType}
+            name={fieldName}
+            value={value}
+            aria-describedby="addon-wrapping"
+            id={fieldName}
+            placeholder={placeholder}
+            onChange={handleChange}
+            className={classes || getClasses()}
+          ></input>
+        )}
+      </div>
+      <div className="input__error">
+        {error && (
+          <div className={getClasses()} role="alert">
+            {error}
+          </div>
+        )}
+      </div>
     </>
   );
 };
 
-export default TextField;
+export default React.memo(TextField);

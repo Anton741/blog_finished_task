@@ -1,40 +1,14 @@
-export default function validator(data, config) {
-    const errors = {};
-    function validate(validateMethod, fieldDate, config) {
-        const reg = /\S+@\S+\.\S+/;
-        switch (validateMethod) {
-        case "isRequire":
-            if (fieldDate.trim() === "") {
-                return config.message;
-            }
-            break;
-        case "emailFormat":
-            if (!reg.test(fieldDate)) {
-                return config.message;
-            }
-            break;
-        case "minLength":
-            if (fieldDate.length < 8) {
-                return config.message;
-            }
-            break;
-        case "isChoosed":
-            if (fieldDate === "Choose...") {
-                return config.message;
-            }
-            break;
-        default:
-            break;
-        }
-    }
-    for (const fieldName in data) {
-        for (const validateMethod in config[fieldName]) {
-            const error = validate(validateMethod, data[fieldName], config[fieldName][validateMethod]);
-            if (error) {
-                errors[fieldName] = error;
-                break;
-            }
-        }
-    }
+import * as yup from 'yup';
+export function validate(data){
+let schema = yup.object().shape({
+    email: yup.string().email().required("Это поле обязательно для заполнения"),
+    password: yup.string()
+                            .required('Обязательно для заполнения')
+                            .min(6, 'Пароль должен содержать не менее 8 символов')
+                            .matches(/(?=.*[0-9])/, 'Пароль должен содержать хотя бы одно число.')
+                            .matches(/(?=.*[!@#$%^&*])/, 'Пароль должен содержать хотя бы один спецсимвол .'),
+    name: yup.string().required("Это поле обязательно для заполнения"),
+    })
+    let errors = schema.validateSync({...data, abortEarly: false})
     return errors;
-};
+}

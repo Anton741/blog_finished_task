@@ -1,21 +1,16 @@
 // import _  from 'lodash';
-import { useState, useEffect } from 'react';
+import { useState } from 'react';
+import { useArticles } from '../../../hooks/useArticles';
 import Popular from './popular';
 import Tags from './tags';
 import SubscribeForm from '../../form/subscribeForm';
 import BigCard from '../../articlesWrappers/bigCard';
 import Pagination from '../../pagination';
 import { siparatePage } from '../../../utils/seperatePage';
-import api from '../../../api/index'
   
 
-const MainBlock = ({ articles }) => {
-  const [tags, setTags] = useState();
-  useEffect(function () {
-    api.tags.fetchAll().then((data) => {
-      setTags(data);
-    });
-  }, []);
+const MainBlock = ({ articles, authors }) => {
+  const {tags} = useArticles()
   const [currentPage, setCurrentPage] = useState(1);
   const [selectedTag, setSelectedTag] = useState()
   const pageSize = 5;
@@ -24,7 +19,6 @@ const MainBlock = ({ articles }) => {
     setCurrentPage(page);
   }
   function handleSort(item){
-    console.log(selectedTag);
     setSelectedTag(item)
     setCurrentPage(1)
   }
@@ -39,9 +33,11 @@ const MainBlock = ({ articles }) => {
       <div className="left__column">
         {siparatedArticles.length > 0 &&
           siparatedArticles.map((article) => {
+            const author = authors.filter((author) => author._id === article.author_id)[0];
             return (
               <BigCard
                 article={article}
+                author = {author}
               />
             );
           })}
@@ -54,7 +50,7 @@ const MainBlock = ({ articles }) => {
         />
       </div>
       <div className="right-column">
-        <Popular articles={popularArticles} />
+        <Popular articles={popularArticles} authors = {authors} />
         {tags && <Tags tags={tags} filterByTags={() => handleSort() } />}
         <SubscribeForm
           blockTitle="Email newsletter"

@@ -1,7 +1,5 @@
 const CheckboxField = ({ name, value, onHandleChange, children }) => {
-    console.log(value);
     const handleChange = ({ target }) => {
-        console.log(target);
         onHandleChange({ name: target.name, value: !value });
     };
     return (

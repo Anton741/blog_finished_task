@@ -12,53 +12,30 @@ const Header = () => {
   const history = useHistory()
   return (
     <header className="header">
-      <div className="container">
         <div className="header__row">
-          <div
-            className={burger ? 'burger burger-active' : 'burger'}
-            onClick={() => setBurger(!burger)}
-          >
+          <div className={burger ? 'burger burger-active' : 'burger'} onClick={() => setBurger(!burger)}>
             <span></span>
           </div>
           <div className="header__logo">
             <img src={logo} alt="logo" srcset="" />
           </div>
-          <nav
-            className={
-              burger ? 'header__menu-active header__menu' : 'header__menu'
-            }
+          <nav className={burger ? 'header__menu-active header__menu' : 'header__menu'}
           >
-            <ul
-              className={
-                burger ? 'header__list header__list-active' : 'header__list'
-              }
-            >
+            <ul className={burger ? 'header__list header__list-active' : 'header__list'}>
               <li className="item__list">
                 <Link to="/" className="header__link" onClick = {() => setBurger(false)}>
-                  Home{' '}
+                  Home
                 </Link>
               </li>
               <li className="item__list">
-                <Link to="/about" className="header__link" onClick = {() => setBurger(false)}>
-                  About{' '}
-                </Link>
+                <Link to="/about" className="header__link" onClick = {() => setBurger(false)}>About</Link>
               </li>
               <li className="item__list">
-                <Link to="/search" className="header__link search__text" onClick = {() => setBurger(false)}>
-                  Search{' '}
-                </Link>
+                <Link to="/search" className="header__link search__text" onClick = {() => setBurger(false)}>Search</Link>
               </li>
             </ul>
-            <div
-              className={
-                burger ? 'header__input-active header__input' : 'header__input'
-              }
-            >
-              {/* <input type="text" className="search__input " /> */}
-              <div
-                className="search__icon"
-                onClick={() => history.push('/search')}
-              >
+            <div className={burger ? 'header__input-active header__input' : 'header__input'}>
+              <div className="search__icon"onClick={() => history.push('/search')}>
                 <svg
                   width="38"
                   height="38"
@@ -82,13 +59,13 @@ const Header = () => {
                   />
                 </svg>
               </div>
-            </div>
-            <div className="header__networks">
-              <SocialNetworks />
-            </div>
+              <div className="header__btn">
+                <Link to="/login" className="header__link" onClick = {() => setBurger(false)}>Sing in</Link>
+              </div>
+              </div>
+              
           </nav>
         </div>
-      </div>
     </header>
   );
 }

@@ -1,16 +1,9 @@
-import { useEffect, useState } from 'react';
 import { useHistory } from 'react-router';
 import dateFormatation from '../../utils/dateFormat';
-import api from '../../api/index';
 
-const SmallCard = ({ article }) => {
+
+const SmallCard = ({ article, author }) => {
   const history = useHistory()
-  const [author, setAuthor] = useState();
-  useEffect(function () {
-    api.authors.getById(article.author_id).then((data) => {
-      setAuthor(data);
-    });
-  }, []);
   return (
     // <div className="card-small">
     <div className="card__content-small small-card card-hover" onClick = {() => history.push(`/articles/${article._id}`)}>

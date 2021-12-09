@@ -1,4 +1,5 @@
 import { useParams } from "react-router";
+import { ArticlesProvider } from "../hooks/useArticles";
 import Header from "../components/header";
 import Home from "../components/pages/homePage/home";
 import About from "../components/pages/aboutBlog/about";
@@ -11,7 +12,9 @@ const Main = () => {
     <Header/>
   {about ? <About/> 
   : <> 
+    <ArticlesProvider>
       <Home/>
+    </ArticlesProvider>
       <Footer/>
     </>
   }

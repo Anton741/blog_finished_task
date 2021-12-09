@@ -1,17 +1,18 @@
-import { useState, useEffect } from 'react';
-import api from '../../api/index';
+import { useEffect } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import { getArticlies } from '../../redux/action';
 import SubscribeForm from '../form/subscribeForm';
 import SocialNetwork from './socialNetworks';
 import PostsBlock from './posts';
 import logo from '../../assets/footer/Logo.png';
 
 const Footer = () => {
-  const [articles, setArticles] = useState();
-  useEffect(function () {
-    api.articles.fetchAll().then((data) => {
-      setArticles(data);
-    });
-  }, []);
+  const dispatch = useDispatch()
+  useEffect(() => dispatch(getArticlies()), []);
+  const articles = useSelector((state) => {
+    return state.getDateReducer.articles;
+  });
+  
   return (
     <footer className="footer">
       <div className="footer__body">

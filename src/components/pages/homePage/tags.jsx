@@ -1,6 +1,5 @@
 
 const Tags = ({tags , filterByTags}) => {
-  console.log(tags);
   return (
     <div className="tags__block">
       <h2 className="tags__title left-block__titles">Tags</h2>
