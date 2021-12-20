@@ -1,0 +1,5 @@
+export const LOAD_ARTICLES = "LOAD_ARTICLES"
+export const LOAD_AUTHORS = "LOAD_AUTHORS"
+export const LOAD_TAGS = "LOAD_TAGS"
+export const SING_IN = "SING_IN"
+export const SING_UP = "SING_UP"
